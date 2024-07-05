@@ -1,10 +1,9 @@
-
 import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'maplibre_bindings_generated.dart';
+import 'package:maplibre/maplibre_bindings.g.dart';
 
 /// A very short-lived native function.
 ///
@@ -24,10 +23,10 @@ int sum(int a, int b) => _bindings.sum(a, b);
 /// 1. Reuse a single isolate for various different kinds of requests.
 /// 2. Use multiple helper isolates for parallel execution.
 Future<int> sumAsync(int a, int b) async {
-  final SendPort helperIsolateSendPort = await _helperIsolateSendPort;
-  final int requestId = _nextSumRequestId++;
-  final _SumRequest request = _SumRequest(requestId, a, b);
-  final Completer<int> completer = Completer<int>();
+  final helperIsolateSendPort = await _helperIsolateSendPort;
+  final requestId = _nextSumRequestId++;
+  final request = _SumRequest(requestId, a, b);
+  final completer = Completer<int>();
   _sumRequests[requestId] = completer;
   helperIsolateSendPort.send(request);
   return completer.future;
@@ -52,26 +51,25 @@ final DynamicLibrary _dylib = () {
 /// The bindings to the native functions in [_dylib].
 final MaplibreBindings _bindings = MaplibreBindings(_dylib);
 
-
 /// A request to compute `sum`.
 ///
 /// Typically sent from one isolate to another.
 class _SumRequest {
+
+  const _SumRequest(this.id, this.a, this.b);
   final int id;
   final int a;
   final int b;
-
-  const _SumRequest(this.id, this.a, this.b);
 }
 
 /// A response with the result of `sum`.
 ///
 /// Typically sent from one isolate to another.
 class _SumResponse {
-  final int id;
-  final int result;
 
   const _SumResponse(this.id, this.result);
+  final int id;
+  final int result;
 }
 
 /// Counter to identify [_SumRequest]s and [_SumResponse]s.
@@ -84,13 +82,13 @@ final Map<int, Completer<int>> _sumRequests = <int, Completer<int>>{};
 Future<SendPort> _helperIsolateSendPort = () async {
   // The helper isolate is going to send us back a SendPort, which we want to
   // wait for.
-  final Completer<SendPort> completer = Completer<SendPort>();
+  final completer = Completer<SendPort>();
 
   // Receive port on the main isolate to receive messages from the helper.
   // We receive two types of messages:
   // 1. A port to send messages on.
   // 2. Responses to requests we sent.
-  final ReceivePort receivePort = ReceivePort()
+  final receivePort = ReceivePort()
     ..listen((dynamic data) {
       if (data is SendPort) {
         // The helper isolate sent us the port on which we can sent it requests.
@@ -99,7 +97,7 @@ Future<SendPort> _helperIsolateSendPort = () async {
       }
       if (data is _SumResponse) {
         // The helper isolate sent us a response to a request we sent.
-        final Completer<int> completer = _sumRequests[data.id]!;
+        final completer = _sumRequests[data.id]!;
         _sumRequests.remove(data.id);
         completer.complete(data.result);
         return;
@@ -109,12 +107,12 @@ Future<SendPort> _helperIsolateSendPort = () async {
 
   // Start the helper isolate.
   await Isolate.spawn((SendPort sendPort) async {
-    final ReceivePort helperReceivePort = ReceivePort()
+    final helperReceivePort = ReceivePort()
       ..listen((dynamic data) {
         // On the helper isolate listen to requests and respond to them.
         if (data is _SumRequest) {
-          final int result = _bindings.sum_long_running(data.a, data.b);
-          final _SumResponse response = _SumResponse(data.id, result);
+          final result = _bindings.sum_long_running(data.a, data.b);
+          final response = _SumResponse(data.id, result);
           sendPort.send(response);
           return;
         }
@@ -123,7 +121,7 @@ Future<SendPort> _helperIsolateSendPort = () async {
 
     // Send the port to the main isolate on which we can receive requests.
     sendPort.send(helperReceivePort.sendPort);
-  }, receivePort.sendPort);
+  }, receivePort.sendPort,);
 
   // Wait until the helper isolate has sent us back the SendPort on which we
   // can start sending requests.
