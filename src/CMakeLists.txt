@@ -6,11 +6,11 @@ cmake_minimum_required(VERSION 3.10)
 project(maplibre_library VERSION 0.0.1 LANGUAGES C)
 
 add_library(maplibre SHARED
-  "maplibre.c"
+  "maplibre.cpp"
 )
 
 set_target_properties(maplibre PROPERTIES
-  PUBLIC_HEADER maplibre.h
+  PUBLIC_HEADER maplibre.hpp
   OUTPUT_NAME "maplibre"
 )
 
