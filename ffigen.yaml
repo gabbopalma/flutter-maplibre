@@ -1,5 +1,5 @@
 # Run with `dart run ffigen --config ffigen.yaml`.
-name: MaplibreBindings
+name: MapLibreBindings
 description: |
   Bindings for `src/maplibre.h`.
 

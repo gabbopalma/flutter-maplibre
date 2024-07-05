@@ -34,7 +34,7 @@ Future<int> sumAsync(int a, int b) async {
 
 const String _libName = 'maplibre';
 
-/// The dynamic library in which the symbols for [MaplibreBindings] can be found.
+/// The dynamic library in which the symbols for [MapLibreBindings] can be found.
 final DynamicLibrary _dylib = () {
   if (Platform.isMacOS || Platform.isIOS) {
     return DynamicLibrary.open('$_libName.framework/$_libName');
@@ -49,14 +49,14 @@ final DynamicLibrary _dylib = () {
 }();
 
 /// The bindings to the native functions in [_dylib].
-final MaplibreBindings _bindings = MaplibreBindings(_dylib);
+final _bindings = MapLibreBindings(_dylib);
 
 /// A request to compute `sum`.
 ///
 /// Typically sent from one isolate to another.
 class _SumRequest {
-
   const _SumRequest(this.id, this.a, this.b);
+
   final int id;
   final int a;
   final int b;
@@ -66,8 +66,8 @@ class _SumRequest {
 ///
 /// Typically sent from one isolate to another.
 class _SumResponse {
-
   const _SumResponse(this.id, this.result);
+
   final int id;
   final int result;
 }
@@ -106,22 +106,26 @@ Future<SendPort> _helperIsolateSendPort = () async {
     });
 
   // Start the helper isolate.
-  await Isolate.spawn((SendPort sendPort) async {
-    final helperReceivePort = ReceivePort()
-      ..listen((dynamic data) {
-        // On the helper isolate listen to requests and respond to them.
-        if (data is _SumRequest) {
-          final result = _bindings.sum_long_running(data.a, data.b);
-          final response = _SumResponse(data.id, result);
-          sendPort.send(response);
-          return;
-        }
-        throw UnsupportedError('Unsupported message type: ${data.runtimeType}');
-      });
+  await Isolate.spawn(
+    (SendPort sendPort) async {
+      final helperReceivePort = ReceivePort()
+        ..listen((dynamic data) {
+          // On the helper isolate listen to requests and respond to them.
+          if (data is _SumRequest) {
+            final result = _bindings.sum_long_running(data.a, data.b);
+            final response = _SumResponse(data.id, result);
+            sendPort.send(response);
+            return;
+          }
+          throw UnsupportedError(
+              'Unsupported message type: ${data.runtimeType}');
+        });
 
-    // Send the port to the main isolate on which we can receive requests.
-    sendPort.send(helperReceivePort.sendPort);
-  }, receivePort.sendPort,);
+      // Send the port to the main isolate on which we can receive requests.
+      sendPort.send(helperReceivePort.sendPort);
+    },
+    receivePort.sendPort,
+  );
 
   // Wait until the helper isolate has sent us back the SendPort on which we
   // can start sending requests.
