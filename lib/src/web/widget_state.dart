@@ -47,6 +47,10 @@ final class MapLibreMapStateWeb extends State<MapLibreMap>
         document.body?.appendChild(_htmlElement);
         // Invoke the onMapCreated callback async to avoid getting it called
         // during the widget build.
+        Future.delayed(
+          Duration.zero,
+          () => widget.onEvent?.call(MapEventMapCreated(mapController: this)),
+        );
         Future.delayed(Duration.zero, () => widget.onMapCreated?.call(this));
         _resizeMap();
 
@@ -96,41 +100,50 @@ final class MapLibreMapStateWeb extends State<MapLibreMap>
           _map.addControl(jsControl);
         }
         // add callbacks
-        if (widget.onStyleLoaded case final VoidCallback callback) {
-          _map.on(
-            interop.MapEventType.load,
-            (interop.MapMouseEvent event) {
-              callback();
-            }.toJS,
-          );
-        }
-        if (_options.onClick case final OnClickCallback callback) {
-          _map.on(
-            interop.MapEventType.click,
-            (interop.MapMouseEvent event) {
-              callback(event.lngLat.toPosition());
-            }.toJS,
-          );
-        }
-        if (_options.onDoubleClick case final OnClickCallback callback) {
-          _map.on(
-            interop.MapEventType.dblclick,
-            (interop.MapMouseEvent event) {
-              callback(event.lngLat.toPosition());
-            }.toJS,
-          );
-        }
-        if (_options.onSecondaryClick case final OnClickCallback callback) {
-          _map.on(
-            interop.MapEventType.contextmenu,
-            (interop.MapMouseEvent event) {
-              callback(event.lngLat.toPosition());
-            }.toJS,
-          );
-        }
         _map.on(
-          interop.MapEventType.moveEnd,
+          interop.MapEventType.load,
+          (interop.MapMouseEvent event) {
+            widget.onStyleLoaded?.call();
+            widget.onEvent?.call(const MapEventStyleLoaded());
+          }.toJS,
+        );
+        _map.on(
+          interop.MapEventType.click,
+          (interop.MapMouseEvent event) {
+            final point = event.lngLat.toPosition();
+            widget.onEvent?.call(MapEventClicked(point: point));
+            // ignore: deprecated_member_use_from_same_package
+            _options.onClick?.call(point);
+          }.toJS,
+        );
+        _map.on(
+          interop.MapEventType.dblclick,
+          (interop.MapMouseEvent event) {
+            final point = event.lngLat.toPosition();
+            widget.onEvent?.call(MapEventDoubleClicked(point: point));
+            // ignore: deprecated_member_use_from_same_package
+            _options.onDoubleClick?.call(point);
+          }.toJS,
+        );
+        _map.on(
+          interop.MapEventType.contextmenu,
+          (interop.MapMouseEvent event) {
+            final point = event.lngLat.toPosition();
+            widget.onEvent?.call(MapEventSecondaryClicked(point: point));
+            // ignore: deprecated_member_use_from_same_package
+            _options.onSecondaryClick?.call(point);
+          }.toJS,
+        );
+        _map.on(
+          interop.MapEventType.move,
           (interop.MapLibreEvent event) {
+            final camera = MapCamera(
+              center: _map.getCenter().toPosition(),
+              zoom: _map.getZoom().toDouble(),
+              tilt: _map.getPitch().toDouble(),
+              bearing: _map.getBearing().toDouble(),
+            );
+            widget.onEvent?.call(MapEventCameraMoved(camera: camera));
             if (_moveCompleter?.isCompleted ?? true) return;
             _moveCompleter?.complete(event);
           }.toJS,
@@ -295,17 +308,38 @@ final class MapLibreMapStateWeb extends State<MapLibreMap>
       case VectorSource():
         _map.addSource(
           source.id,
-          interop.SourceSpecification.vector(type: 'vector'),
+          interop.SourceSpecification.vector(
+            type: 'vector',
+            url: source.url,
+          ),
         );
       case ImageSource():
         _map.addSource(
           source.id,
-          interop.SourceSpecification.image(type: 'image'),
+          interop.SourceSpecification.image(
+            type: 'image',
+            url: source.url,
+            coordinates: source.coordinates
+                .map(
+                  (e) => [e.lng, e.lat],
+                )
+                .toList(growable: false)
+                .jsify()!,
+          ),
         );
       case VideoSource():
         _map.addSource(
           source.id,
-          interop.SourceSpecification.video(type: 'video'),
+          interop.SourceSpecification.video(
+            type: 'video',
+            urls: source.urls.jsify()!,
+            coordinates: source.coordinates
+                .map(
+                  (e) => [e.lng, e.lat],
+                )
+                .toList(growable: false)
+                .jsify()!,
+          ),
         );
     }
   }
@@ -442,6 +476,23 @@ final class MapLibreMapStateWeb extends State<MapLibreMap>
       latitudeNorth: bounds.getNorth().toDouble(),
     );
   }
+
+  @override
+  Future<void> addImage(String id, Uint8List bytes) async {
+    final image = await decodeImageFromList(bytes);
+    final byteData = await image.toByteData();
+    _map.addImage(
+      id,
+      interop.ImageSpecification(
+        width: image.width,
+        height: image.height,
+        data: byteData!.buffer.asUint8List().toJS,
+      ),
+    );
+  }
+
+  @override
+  Future<void> removeImage(String id) async => _map.removeImage(id);
 
   @override
   Future<void> removeLayer(String id) async => _map.removeLayer(id);

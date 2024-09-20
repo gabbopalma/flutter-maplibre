@@ -2,14 +2,16 @@
 
 ### Features
 
+- Add event system to the map.
+- Add and remove sources to the active map style programmatically.
+- Add and remove layers to the active map style programmatically.
 - Add `duration` parameter to `flyTo()`.
 - `flyTo()` returns after the animation completes or throws an exception if it
   has been cancelled.
-- Add sources and layers to the map programmatically.
 
 ### Bug fixes
 
-- Fix `jumpTo()` never returns
+- Fix `jumpTo()` never returns on Android.
 
 ## 0.0.1+1
 

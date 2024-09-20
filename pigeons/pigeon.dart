@@ -156,6 +156,19 @@ abstract interface class MapLibreHostApi {
   @async
   void removeSource(String id);
 
+  /// Loads an image to the map. An image needs to be loaded before it can
+  /// get used.
+  @async
+  Uint8List loadImage(String url);
+
+  /// Add an image to the map.
+  @async
+  void addImage(String id, Uint8List bytes);
+
+  /// Removes an image from the map
+  @async
+  void removeImage(String id);
+
   /// Add a GeoJSON source to the map style.
   @async
   void addGeoJsonSource({
@@ -245,6 +258,9 @@ abstract interface class MapLibreFlutterApi {
 
   /// Callback when the user performs a long lasting click on the map.
   void onLongClick(LngLat point);
+
+  /// Callback when the map camera changes.
+  void onCameraMoved(MapCamera camera);
 }
 
 /// The map options define initial values for the MapLibre map.

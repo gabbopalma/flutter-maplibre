@@ -10,6 +10,7 @@ import RasterDemEncoding
 import ScreenLocation
 import TileScheme
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.PointF
 import android.view.View
 import android.widget.FrameLayout
@@ -46,7 +47,9 @@ import org.maplibre.android.style.sources.RasterDemSource
 import org.maplibre.android.style.sources.RasterSource
 import org.maplibre.android.style.sources.TileSet
 import org.maplibre.android.style.sources.VectorSource
+import java.io.IOException
 import java.net.URI
+import java.net.URL
 import kotlin.coroutines.cancellation.CancellationException
 
 
@@ -55,8 +58,7 @@ class MapLibreMapController(
     private val context: Context,
     private val lifecycleProvider: LifecycleProvider,
     binaryMessenger: BinaryMessenger
-) : PlatformView, DefaultLifecycleObserver, OnMapReadyCallback, MapLibreHostApi,
-    MapLibreMap.OnMapClickListener, MapLibreMap.OnMapLongClickListener {
+) : PlatformView, DefaultLifecycleObserver, OnMapReadyCallback, MapLibreHostApi {
     private val mapViewContainer = FrameLayout(context)
     private lateinit var mapLibreMap: MapLibreMap
     private lateinit var mapView: MapView
@@ -102,10 +104,23 @@ class MapLibreMapController(
     override fun onMapReady(mapLibreMap: MapLibreMap) {
         this.mapLibreMap = mapLibreMap
         if (initialOptions.listensOnClick) {
-            this.mapLibreMap.addOnMapClickListener(this)
+            this.mapLibreMap.addOnMapClickListener { latLng ->
+                flutterApi.onClick(LngLat(latLng.longitude, latLng.latitude)) { }
+                true
+            }
         }
         if (initialOptions.listensOnLongClick) {
-            this.mapLibreMap.addOnMapLongClickListener(this)
+            this.mapLibreMap.addOnMapLongClickListener { latLng ->
+                flutterApi.onLongClick(LngLat(latLng.longitude, latLng.latitude)) { }
+                true
+            }
+        }
+        this.mapLibreMap.addOnCameraMoveListener {
+            val position = mapLibreMap.cameraPosition
+            val target = mapLibreMap.cameraPosition.target!!
+            val center = LngLat(target.longitude, target.latitude)
+            val camera = MapCamera(center, position.zoom, position.tilt, position.bearing)
+            flutterApi.onCameraMoved(camera) {}
         }
         val style = Style.Builder().fromUri(initialOptions.style)
         mapLibreMap.setStyle(style) { loadedStyle ->
@@ -363,6 +378,27 @@ class MapLibreMapController(
         callback(Result.success(Unit))
     }
 
+    override fun loadImage(url: String, callback: (Result<ByteArray>) -> Unit) {
+        try {
+            val bytes = URL(url).openConnection().getInputStream().readBytes()
+            callback(Result.success(bytes))
+        } catch (e: IOException) {
+            println(e)
+            callback(Result.failure(e))
+        }
+    }
+
+    override fun addImage(id: String, bytes: ByteArray, callback: (Result<Unit>) -> Unit) {
+        val bitmap = BitmapFactory.decodeStream(bytes.inputStream())
+        mapLibreMap.style?.addImage(id, bitmap)
+        callback(Result.success(Unit))
+    }
+
+    override fun removeImage(id: String, callback: (Result<Unit>) -> Unit) {
+        mapLibreMap.style?.removeImage(id)
+        callback(Result.success(Unit))
+    }
+
     override fun getCamera(callback: (Result<MapCamera>) -> Unit) {
         val position = mapLibreMap.cameraPosition
         val target = mapLibreMap.cameraPosition.target!!
@@ -488,14 +524,4 @@ class MapLibreMapController(
 
     override fun getMetersPerPixelAtLatitude(latitude: Double): Double =
         mapLibreMap.projection.getMetersPerPixelAtLatitude(latitude)
-
-    override fun onMapClick(point: LatLng): Boolean {
-        flutterApi.onClick(LngLat(point.longitude, point.latitude)) { }
-        return true
-    }
-
-    override fun onMapLongClick(point: LatLng): Boolean {
-        flutterApi.onLongClick(LngLat(point.longitude, point.latitude)) { }
-        return true
-    }
 }
