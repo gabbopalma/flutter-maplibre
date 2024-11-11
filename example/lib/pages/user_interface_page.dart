@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/styled_map_page.dart';
+import 'package:maplibre_example/pages/styled_map_page.dart';
 
 @immutable
 class UserInterfacePage extends StatefulWidget {

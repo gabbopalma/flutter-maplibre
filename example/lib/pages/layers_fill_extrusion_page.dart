@@ -1,8 +1,7 @@
 // ignore_for_file: require_trailing_commas
-
 import 'package:flutter/material.dart';
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/styled_map_page.dart';
+import 'package:maplibre_example/pages/styled_map_page.dart';
 
 @immutable
 class LayersFillExtrusionPage extends StatefulWidget {

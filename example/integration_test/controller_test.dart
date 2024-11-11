@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/styled_map_page.dart';
+import 'package:maplibre_example/pages/styled_map_page.dart';
 
 import 'app.dart';
 

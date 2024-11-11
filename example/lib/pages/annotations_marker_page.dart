@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/layers_symbol_page.dart';
+import 'package:maplibre_example/pages/layers_symbol_page.dart';
 
 @immutable
 class AnnotationsMarkerPage extends StatefulWidget {

@@ -17,7 +17,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MapLibre Demo',
+      title: 'MapLibre NIO Demo',
       home: Scaffold(
         body: MapLibreInheritedModel(
           mapCamera: camera,

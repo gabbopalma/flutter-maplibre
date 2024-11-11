@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/styled_map_page.dart';
+import 'package:maplibre_example/pages/styled_map_page.dart';
 
 @immutable
 class OfflinePage extends StatefulWidget {
@@ -65,8 +65,7 @@ class _OfflinePageState extends State<OfflinePage> {
                                       });
                                     } else {
                                       setState(() {
-                                        _downloadProgressWorld =
-                                            '${update.loadedTiles}/${update.totalTiles} '
+                                        _downloadProgressWorld = '${update.loadedTiles}/${update.totalTiles} '
                                             '(${((update.progress ?? 0) * 100).toStringAsFixed(0)}%)';
                                       });
                                     }
@@ -127,8 +126,7 @@ class _OfflinePageState extends State<OfflinePage> {
                                       });
                                     } else {
                                       setState(() {
-                                        _downloadProgressBregenz =
-                                            '${update.loadedTiles}/${update.totalTiles} '
+                                        _downloadProgressBregenz = '${update.loadedTiles}/${update.totalTiles} '
                                             '(${((update.progress ?? 0) * 100).toStringAsFixed(0)}%)';
                                       });
                                     }
@@ -182,8 +180,7 @@ class _OfflinePageState extends State<OfflinePage> {
                   title: const Text('Get Offline Region'),
                   onTap: () async {
                     try {
-                      final region =
-                          await manager.getOfflineRegion(regionId: 1);
+                      final region = await manager.getOfflineRegion(regionId: 1);
                       _print('offline region: $region');
                     } catch (error, stacktrace) {
                       _print(error.toString());

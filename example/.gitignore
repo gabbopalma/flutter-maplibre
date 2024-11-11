@@ -30,6 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/lib/utils/backend.dart
+/lib/singletons/auth.dart
 
 # Symbolication related
 app.*.symbols
