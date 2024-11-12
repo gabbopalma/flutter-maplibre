@@ -17,9 +17,14 @@ import 'package:maplibre_example/pages/layers/layers_hillshade_page.dart';
 import 'package:maplibre_example/pages/layers/layers_line_page.dart';
 import 'package:maplibre_example/pages/layers/layers_raster_page.dart';
 import 'package:maplibre_example/pages/layers/layers_symbol_page.dart';
+import 'package:maplibre_example/pages/menu_page.dart';
 import 'package:maplibre_example/pages/general/offline_page.dart';
 import 'package:maplibre_example/pages/general/parameters_page.dart';
 import 'package:maplibre_example/pages/general/permissions_page.dart';
+import 'package:maplibre_example/pages/projects/projects_extralarge_page.dart';
+import 'package:maplibre_example/pages/projects/projects_stresstest_page.dart';
+import 'package:maplibre_example/pages/projects/projects_large_page.dart';
+import 'package:maplibre_example/pages/projects/projects_medium_page.dart';
 import 'package:maplibre_example/pages/general/styled_map_page.dart';
 import 'package:maplibre_example/pages/general/two_maps_page.dart';
 import 'package:maplibre_example/pages/general/user_interface_page.dart';
@@ -27,17 +32,48 @@ import 'package:maplibre_example/pages/general/user_location_page.dart';
 import 'package:maplibre_example/pages/general/web_controls_page.dart';
 import 'package:maplibre_example/pages/general/widget_layer_page.dart';
 
-class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+class CustomMenuPage extends StatelessWidget {
+  const CustomMenuPage({super.key});
 
-  static const location = '/menu';
+  static const location = '/';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MapLibre Demo')),
+      appBar: AppBar(title: const Text('MapLibre NIO Demo')),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: SectionTitle('Projects')),
+          SliverGrid.extent(
+            maxCrossAxisExtent: 150,
+            childAspectRatio: 1.5,
+            children: const [
+              ItemCard(
+                iconData: Icons.folder,
+                iconSize: 10,
+                label: 'Medium',
+                location: ProjectsMediumPage.location,
+              ),
+              ItemCard(
+                iconData: Icons.folder,
+                iconSize: 20,
+                label: 'Large',
+                location: ProjectsLargePage.location,
+              ),
+              ItemCard(
+                iconData: Icons.folder,
+                iconSize: 30,
+                label: 'Extralarge',
+                location: ProjectsExtralargePage.location,
+              ),
+              ItemCard(
+                iconData: Icons.folder,
+                iconSize: 40,
+                label: 'Stress test',
+                location: ProjectsStressTestPage.location,
+              ),
+            ],
+          ),
           const SliverToBoxAdapter(child: SectionTitle('General')),
           SliverGrid.extent(
             maxCrossAxisExtent: 150,
@@ -195,48 +231,6 @@ class MenuPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  const ItemCard({
-    required this.label,
-    required this.iconData,
-    required this.location,
-    this.iconSize,
-    super.key,
-  });
-
-  final String label;
-  final IconData iconData;
-  final String location;
-  final double? iconSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: () => Navigator.of(context).pushNamed(location),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Icon(iconData, size: iconSize), Text(label, textAlign: TextAlign.center)],
-        ),
-      ),
-    );
-  }
-}
-
-class SectionTitle extends StatelessWidget {
-  const SectionTitle(this.label, {super.key});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(label, style: const TextStyle(fontSize: 18)),
     );
   }
 }

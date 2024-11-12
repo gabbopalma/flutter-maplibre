@@ -9,7 +9,7 @@ final class SymbolLayer extends LayerWithSource {
     required super.id,
     required super.sourceId,
     super.layout,
-    super.paint,
+    super.paint, required String iconImage,
   });
 
   // TODO add properties

@@ -5,7 +5,7 @@ import 'package:maplibre_example/utils/backend.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  static const location = '/';
+  static const location = '/login';
 
   @override
   State<LoginPage> createState() => _LoginPageState();

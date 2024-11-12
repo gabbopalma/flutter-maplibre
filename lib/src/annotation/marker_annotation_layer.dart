@@ -234,6 +234,7 @@ class MarkerAnnotationLayer extends AnnotationLayer<Point> {
         sourceId: getSourceId(index),
         paint: getPaint(),
         layout: getLayout(),
+        iconImage: iconImage ?? '',
       );
 
   @override

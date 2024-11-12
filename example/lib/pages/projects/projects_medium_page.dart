@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/pages/layers_symbol_page.dart';
+import 'package:maplibre_example/pages/layers/layers_symbol_page.dart';
 
 @immutable
-class AnnotationsMarkerPage extends StatefulWidget {
-  const AnnotationsMarkerPage({super.key});
+class ProjectsMediumPage extends StatefulWidget {
+  const ProjectsMediumPage({super.key});
 
-  static const location = '/annotations/marker';
+  static const location = '/projects/medium';
 
   @override
-  State<AnnotationsMarkerPage> createState() => _AnnotationsMarkerPageState();
+  State<ProjectsMediumPage> createState() => _ProjectsMediumPageState();
 }
 
-class _AnnotationsMarkerPageState extends State<AnnotationsMarkerPage> {
+class _ProjectsMediumPageState extends State<ProjectsMediumPage> {
   final _points = <Point>[
     Point(coordinates: Position(9.17, 47.68)),
     Point(coordinates: Position(9.17, 48)),

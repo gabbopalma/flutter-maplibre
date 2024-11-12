@@ -76,8 +76,8 @@ void main() {
       expect(o.hashCode, isNot(equals(o2.hashCode)));
     });
     test('SymbolLayer', () {
-      const o = SymbolLayer(id: '12', sourceId: '342');
-      const o2 = SymbolLayer(id: '42', sourceId: '342');
+      const o = SymbolLayer(id: '12', sourceId: '342', iconImage: 'icon');
+      const o2 = SymbolLayer(id: '42', sourceId: '342', iconImage: 'icon');
       expect(o, equals(o));
       expect(o2, equals(o2));
       expect(o, isNot(equals(o2)));

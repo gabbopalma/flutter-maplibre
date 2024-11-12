@@ -45,6 +45,7 @@ class _LayersSymbolPageState extends State<LayersSymbolPage> {
             const SymbolLayer(
               id: 'images',
               sourceId: 'points',
+              iconImage: 'marker',
               layout: {
                 // see https://maplibre.org/maplibre-style-spec/layers/#symbol
                 'icon-image': 'marker',

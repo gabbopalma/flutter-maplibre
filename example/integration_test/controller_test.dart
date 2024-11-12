@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:maplibre/maplibre.dart';
-import 'package:maplibre_example/pages/styled_map_page.dart';
+import 'package:maplibre_example/pages/general/styled_map_page.dart';
 
 import 'app.dart';
 
@@ -428,7 +428,7 @@ void main() {
     final app = App(onMapCreated: ctrlCompleter.complete);
     await tester.pumpWidget(app);
     final ctrl = await ctrlCompleter.future;
-    const layer = SymbolLayer(id: '1', sourceId: 'source1');
+    const layer = SymbolLayer(id: '1', sourceId: 'source1', iconImage: 'icon');
     await ctrl.addLayer(layer);
     await tester.pumpAndSettle();
   });
@@ -437,7 +437,7 @@ void main() {
     final app = App(onMapCreated: ctrlCompleter.complete);
     await tester.pumpWidget(app);
     final ctrl = await ctrlCompleter.future;
-    const layer = SymbolLayer(id: '1', sourceId: 'source1');
+    const layer = SymbolLayer(id: '1', sourceId: 'source1', iconImage: 'icon');
     await ctrl.addLayer(layer);
     await tester.pumpAndSettle();
   });

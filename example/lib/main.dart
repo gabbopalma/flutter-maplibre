@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:maplibre_example/pages/animation_page.dart';
-import 'package:maplibre_example/pages/annotations_circle_page.dart';
-import 'package:maplibre_example/pages/annotations_marker_page.dart';
-import 'package:maplibre_example/pages/annotations_mixed_page.dart';
-import 'package:maplibre_example/pages/annotations_polygon_page.dart';
-import 'package:maplibre_example/pages/annotations_polyline_page.dart';
-import 'package:maplibre_example/pages/controller_page.dart';
-import 'package:maplibre_example/pages/events_page.dart';
-import 'package:maplibre_example/pages/gestures_page.dart';
-import 'package:maplibre_example/pages/kiosk_page.dart';
-import 'package:maplibre_example/pages/layers_circle_page.dart';
-import 'package:maplibre_example/pages/layers_fill_extrusion_page.dart';
-import 'package:maplibre_example/pages/layers_fill_page.dart';
-import 'package:maplibre_example/pages/layers_heatmap_page.dart';
-import 'package:maplibre_example/pages/layers_hillshade_page.dart';
-import 'package:maplibre_example/pages/layers_line_page.dart';
-import 'package:maplibre_example/pages/layers_raster_page.dart';
-import 'package:maplibre_example/pages/layers_symbol_page.dart';
+import 'package:maplibre_example/pages/general/animation_page.dart';
+import 'package:maplibre_example/pages/annotations/annotations_circle_page.dart';
+import 'package:maplibre_example/pages/annotations/annotations_marker_page.dart';
+import 'package:maplibre_example/pages/annotations/annotations_mixed_page.dart';
+import 'package:maplibre_example/pages/annotations/annotations_polygon_page.dart';
+import 'package:maplibre_example/pages/annotations/annotations_polyline_page.dart';
+import 'package:maplibre_example/pages/general/controller_page.dart';
+import 'package:maplibre_example/pages/custom_menu_page.dart';
+import 'package:maplibre_example/pages/general/events_page.dart';
+import 'package:maplibre_example/pages/general/gestures_page.dart';
+import 'package:maplibre_example/pages/general/kiosk_page.dart';
+import 'package:maplibre_example/pages/layers/layers_circle_page.dart';
+import 'package:maplibre_example/pages/layers/layers_fill_extrusion_page.dart';
+import 'package:maplibre_example/pages/layers/layers_fill_page.dart';
+import 'package:maplibre_example/pages/layers/layers_heatmap_page.dart';
+import 'package:maplibre_example/pages/layers/layers_hillshade_page.dart';
+import 'package:maplibre_example/pages/layers/layers_line_page.dart';
+import 'package:maplibre_example/pages/layers/layers_raster_page.dart';
+import 'package:maplibre_example/pages/layers/layers_symbol_page.dart';
 import 'package:maplibre_example/pages/login_page.dart';
 import 'package:maplibre_example/pages/menu_page.dart';
-import 'package:maplibre_example/pages/offline_page.dart';
-import 'package:maplibre_example/pages/parameters_page.dart';
-import 'package:maplibre_example/pages/permissions_page.dart';
-import 'package:maplibre_example/pages/styled_map_page.dart';
-import 'package:maplibre_example/pages/two_maps_page.dart';
-import 'package:maplibre_example/pages/user_interface_page.dart';
-import 'package:maplibre_example/pages/user_location_page.dart';
-import 'package:maplibre_example/pages/web_controls_page.dart';
-import 'package:maplibre_example/pages/widget_layer_page.dart';
+import 'package:maplibre_example/pages/general/offline_page.dart';
+import 'package:maplibre_example/pages/general/parameters_page.dart';
+import 'package:maplibre_example/pages/general/permissions_page.dart';
+import 'package:maplibre_example/pages/projects/projects_extralarge_page.dart';
+import 'package:maplibre_example/pages/projects/projects_large_page.dart';
+import 'package:maplibre_example/pages/projects/projects_medium_page.dart';
+import 'package:maplibre_example/pages/projects/projects_stresstest_page.dart';
+import 'package:maplibre_example/pages/general/styled_map_page.dart';
+import 'package:maplibre_example/pages/general/two_maps_page.dart';
+import 'package:maplibre_example/pages/general/user_interface_page.dart';
+import 'package:maplibre_example/pages/general/user_location_page.dart';
+import 'package:maplibre_example/pages/general/web_controls_page.dart';
+import 'package:maplibre_example/pages/general/widget_layer_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MapLibre NIO Demo',
-      initialRoute: MenuPage.location,
+      initialRoute: CustomMenuPage.location,
       theme: ThemeData(colorSchemeSeed: Colors.blue),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -49,6 +54,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.location: (context) => const LoginPage(),
         MenuPage.location: (context) => const MenuPage(),
+        CustomMenuPage.location: (context) => const CustomMenuPage(),
         KioskPage.location: (context) => const KioskPage(),
         AnimationPage.location: (context) => const AnimationPage(),
         GesturesPage.location: (context) => const GesturesPage(),
@@ -73,6 +79,10 @@ class MyApp extends StatelessWidget {
         AnnotationsMarkerPage.location: (context) => const AnnotationsMarkerPage(),
         AnnotationsPolylinePage.location: (context) => const AnnotationsPolylinePage(),
         AnnotationsPolygonPage.location: (context) => const AnnotationsPolygonPage(),
+        ProjectsMediumPage.location: (context) => const ProjectsMediumPage(),
+        ProjectsLargePage.location: (context) => const ProjectsLargePage(),
+        ProjectsExtralargePage.location: (context) => const ProjectsExtralargePage(),
+        ProjectsStressTestPage.location: (context) => const ProjectsStressTestPage(),
         ParametersPage.location: (context) => const ParametersPage(),
         ControllerPage.location: (context) => const ControllerPage(),
         TwoMapsPage.location: (context) => const TwoMapsPage(),
