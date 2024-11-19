@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplibre_example/animation_page.dart';
+import 'package:maplibre_example/composite_map_page.dart';
 import 'package:maplibre_example/controller_page.dart';
 import 'package:maplibre_example/events_page.dart';
 import 'package:maplibre_example/gestures_page.dart';
@@ -56,19 +57,13 @@ class MyApp extends StatelessWidget {
         WidgetLayerPage.location: (context) => const WidgetLayerPage(),
         OfflinePage.location: (context) => const OfflinePage(),
         PermissionsPage.location: (context) => const PermissionsPage(),
-        StyleLayersSymbolPage.location: (context) =>
-            const StyleLayersSymbolPage(),
-        StyleLayersCirclePage.location: (context) =>
-            const StyleLayersCirclePage(),
-        StyleLayersHeatmapPage.location: (context) =>
-            const StyleLayersHeatmapPage(),
-        StyleLayersHillshadePage.location: (context) =>
-            const StyleLayersHillshadePage(),
+        StyleLayersSymbolPage.location: (context) => const StyleLayersSymbolPage(),
+        StyleLayersCirclePage.location: (context) => const StyleLayersCirclePage(),
+        StyleLayersHeatmapPage.location: (context) => const StyleLayersHeatmapPage(),
+        StyleLayersHillshadePage.location: (context) => const StyleLayersHillshadePage(),
         StyleLayersFillPage.location: (context) => const StyleLayersFillPage(),
-        StyleLayersFillExtrusionPage.location: (context) =>
-            const StyleLayersFillExtrusionPage(),
-        StyleLayersRasterPage.location: (context) =>
-            const StyleLayersRasterPage(),
+        StyleLayersFillExtrusionPage.location: (context) => const StyleLayersFillExtrusionPage(),
+        StyleLayersRasterPage.location: (context) => const StyleLayersRasterPage(),
         StyleLayersLinePage.location: (context) => const StyleLayersLinePage(),
         LayersMixedPage.location: (context) => const LayersMixedPage(),
         LayersCirclePage.location: (context) => const LayersCirclePage(),
@@ -78,6 +73,7 @@ class MyApp extends StatelessWidget {
         ParametersPage.location: (context) => const ParametersPage(),
         ControllerPage.location: (context) => const ControllerPage(),
         TwoMapsPage.location: (context) => const TwoMapsPage(),
+        CompositeMapPage.location: (context) => const CompositeMapPage(),
       },
     );
   }

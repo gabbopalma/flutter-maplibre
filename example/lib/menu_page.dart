@@ -9,6 +9,7 @@ import 'package:maplibre_example/layers_marker_page.dart';
 import 'package:maplibre_example/layers_mixed_page.dart';
 import 'package:maplibre_example/layers_polygon_page.dart';
 import 'package:maplibre_example/layers_polyline_page.dart';
+import 'package:maplibre_example/composite_map_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
 import 'package:maplibre_example/permissions_page.dart';
@@ -37,6 +38,18 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(title: const Text('MapLibre Demo')),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: SectionTitle('Special cases')),
+          SliverGrid.extent(
+            maxCrossAxisExtent: 150,
+            childAspectRatio: 1.5,
+            children: const [
+              ItemCard(
+                label: 'Composite Map',
+                location: CompositeMapPage.location,
+                iconData: Icons.control_point_duplicate,
+              ),
+            ],
+          ),
           const SliverToBoxAdapter(child: SectionTitle('General')),
           SliverGrid.extent(
             maxCrossAxisExtent: 150,
