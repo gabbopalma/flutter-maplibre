@@ -92,11 +92,11 @@ class _SourceAttributionState extends State<SourceAttribution> {
                               'MapLibre${attributions.isEmpty ? '' : ' |'}',
                               style: theme.textTheme.bodySmall,
                             ),
-                            onTap: () =>
-                                launchUrl(Uri.parse('https://maplibre.org/')),
+                            onTap: () => launchUrl(Uri.parse('https://maplibre.org/')),
                           ),
                         ),
-                      ],
+                      ] else
+                        const SizedBox(width: 8),
                       ...attributions.map(_HtmlWidget.new),
                     ],
                     // The SizedBox enforces the height on android (web works without it).

@@ -11,6 +11,8 @@ import 'package:maplibre_example/layers_polygon_page.dart';
 import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
+import 'package:maplibre_example/performance_of_project_page.dart';
+import 'package:maplibre_example/performance_stress_test.dart';
 import 'package:maplibre_example/permissions_page.dart';
 import 'package:maplibre_example/style_layers_circle_page.dart';
 import 'package:maplibre_example/style_layers_fill_extrusion_page.dart';
@@ -38,6 +40,23 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(title: const Text('MapLibre Demo')),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: SectionTitle('Performance')),
+          SliverGrid.extent(
+            maxCrossAxisExtent: 150,
+            childAspectRatio: 1.5,
+            children: const [
+              ItemCard(
+                label: 'OF Project',
+                iconData: Icons.folder,
+                location: PerformanceOfProjectPage.location,
+              ),
+              ItemCard(
+                label: 'Stress test',
+                iconData: Icons.local_fire_department,
+                location: PerformanceStressTest.location,
+              ),
+            ],
+          ),
           const SliverToBoxAdapter(child: SectionTitle('General')),
           SliverGrid.extent(
             maxCrossAxisExtent: 150,

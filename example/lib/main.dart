@@ -12,6 +12,8 @@ import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/menu_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
+import 'package:maplibre_example/performance_of_project_page.dart';
+import 'package:maplibre_example/performance_stress_test.dart';
 import 'package:maplibre_example/permissions_page.dart';
 import 'package:maplibre_example/style_layers_circle_page.dart';
 import 'package:maplibre_example/style_layers_fill_extrusion_page.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      showPerformanceOverlay: true,
+      
       title: 'MapLibre Demo',
       initialRoute: MenuPage.location,
       theme: ThemeData(colorSchemeSeed: Colors.blue),
@@ -57,19 +61,13 @@ class MyApp extends StatelessWidget {
         WidgetLayerPage.location: (context) => const WidgetLayerPage(),
         OfflinePage.location: (context) => const OfflinePage(),
         PermissionsPage.location: (context) => const PermissionsPage(),
-        StyleLayersSymbolPage.location: (context) =>
-            const StyleLayersSymbolPage(),
-        StyleLayersCirclePage.location: (context) =>
-            const StyleLayersCirclePage(),
-        StyleLayersHeatmapPage.location: (context) =>
-            const StyleLayersHeatmapPage(),
-        StyleLayersHillshadePage.location: (context) =>
-            const StyleLayersHillshadePage(),
+        StyleLayersSymbolPage.location: (context) => const StyleLayersSymbolPage(),
+        StyleLayersCirclePage.location: (context) => const StyleLayersCirclePage(),
+        StyleLayersHeatmapPage.location: (context) => const StyleLayersHeatmapPage(),
+        StyleLayersHillshadePage.location: (context) => const StyleLayersHillshadePage(),
         StyleLayersFillPage.location: (context) => const StyleLayersFillPage(),
-        StyleLayersFillExtrusionPage.location: (context) =>
-            const StyleLayersFillExtrusionPage(),
-        StyleLayersRasterPage.location: (context) =>
-            const StyleLayersRasterPage(),
+        StyleLayersFillExtrusionPage.location: (context) => const StyleLayersFillExtrusionPage(),
+        StyleLayersRasterPage.location: (context) => const StyleLayersRasterPage(),
         StyleLayersLinePage.location: (context) => const StyleLayersLinePage(),
         WebControlsPage.location: (context) => const WebControlsPage(),
         LayersMixedPage.location: (context) => const LayersMixedPage(),
@@ -80,6 +78,8 @@ class MyApp extends StatelessWidget {
         ParametersPage.location: (context) => const ParametersPage(),
         ControllerPage.location: (context) => const ControllerPage(),
         TwoMapsPage.location: (context) => const TwoMapsPage(),
+        PerformanceOfProjectPage.location: (context) => const PerformanceOfProjectPage(),
+        PerformanceStressTest.location: (context) => const PerformanceStressTest(),
       },
     );
   }
