@@ -12,6 +12,7 @@ import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/menu_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
+import 'package:maplibre_example/performance_cartografia.dart';
 import 'package:maplibre_example/performance_of_project_page.dart';
 import 'package:maplibre_example/performance_stress_test.dart';
 import 'package:maplibre_example/permissions_page.dart';
@@ -40,8 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      showPerformanceOverlay: true,
-      
+      // showPerformanceOverlay: true,
       title: 'MapLibre Demo',
       initialRoute: MenuPage.location,
       theme: ThemeData(colorSchemeSeed: Colors.blue),
@@ -80,6 +80,7 @@ class MyApp extends StatelessWidget {
         TwoMapsPage.location: (context) => const TwoMapsPage(),
         PerformanceOfProjectPage.location: (context) => const PerformanceOfProjectPage(),
         PerformanceStressTest.location: (context) => const PerformanceStressTest(),
+        PerformanceCartografia.location: (context) => const PerformanceCartografia(),
       },
     );
   }

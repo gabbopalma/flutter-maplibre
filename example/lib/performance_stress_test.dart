@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:maplibre/maplibre.dart';
 import 'package:maplibre_example/styled_map_page.dart';
@@ -18,12 +15,6 @@ class PerformanceStressTest extends StatefulWidget {
 
 class _PerformanceStressTestState extends State<PerformanceStressTest> {
   late final MapController controller;
-  List<CircleLayer> circles = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

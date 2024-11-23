@@ -11,6 +11,7 @@ import 'package:maplibre_example/layers_polygon_page.dart';
 import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
+import 'package:maplibre_example/performance_cartografia.dart';
 import 'package:maplibre_example/performance_of_project_page.dart';
 import 'package:maplibre_example/performance_stress_test.dart';
 import 'package:maplibre_example/permissions_page.dart';
@@ -49,6 +50,11 @@ class MenuPage extends StatelessWidget {
                 label: 'OF Project',
                 iconData: Icons.folder,
                 location: PerformanceOfProjectPage.location,
+              ),
+              ItemCard(
+                label: 'Cartografia',
+                iconData: Icons.water_drop,
+                location: PerformanceCartografia.location,
               ),
               ItemCard(
                 label: 'Stress test',
