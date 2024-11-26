@@ -4,16 +4,16 @@ import 'package:maplibre/maplibre.dart';
 import 'package:maplibre_example/styled_map_page.dart';
 
 @immutable
-class PerformanceStressTest extends StatefulWidget {
-  const PerformanceStressTest({super.key});
+class PerformanceStressTestPage extends StatefulWidget {
+  const PerformanceStressTestPage({super.key});
 
   static const location = '/performance/stress-test';
 
   @override
-  State<PerformanceStressTest> createState() => _PerformanceStressTestState();
+  State<PerformanceStressTestPage> createState() => _PerformanceStressTestPageState();
 }
 
-class _PerformanceStressTestState extends State<PerformanceStressTest> {
+class _PerformanceStressTestPageState extends State<PerformanceStressTestPage> {
   late final MapController controller;
 
   @override

@@ -12,9 +12,11 @@ import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
 import 'package:maplibre_example/performance_cartografia.dart';
+import 'package:maplibre_example/performance_edit_geometry_page.dart';
 import 'package:maplibre_example/performance_of_project_page.dart';
-import 'package:maplibre_example/performance_stress_test.dart';
+import 'package:maplibre_example/performance_stress_test_page.dart';
 import 'package:maplibre_example/permissions_page.dart';
+import 'package:maplibre_example/streets_map_page.dart';
 import 'package:maplibre_example/style_layers_circle_page.dart';
 import 'package:maplibre_example/style_layers_fill_extrusion_page.dart';
 import 'package:maplibre_example/style_layers_fill_page.dart';
@@ -59,7 +61,12 @@ class MenuPage extends StatelessWidget {
               ItemCard(
                 label: 'Stress test',
                 iconData: Icons.local_fire_department,
-                location: PerformanceStressTest.location,
+                location: PerformanceStressTestPage.location,
+              ),
+              ItemCard(
+                label: 'Edit geometry',
+                iconData: Icons.line_axis,
+                location: PerformanceEditGeometryPage.location,
               ),
             ],
           ),
@@ -72,6 +79,11 @@ class MenuPage extends StatelessWidget {
                 label: 'Styled Map',
                 iconData: Icons.map,
                 location: StyledMapPage.location,
+              ),
+              ItemCard(
+                label: 'Streets Map',
+                iconData: Icons.home_work,
+                location: StreetsMapPage.location,
               ),
               ItemCard(
                 label: 'Parameters',

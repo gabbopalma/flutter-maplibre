@@ -11,14 +11,12 @@ class StyleLayersFillExtrusionPage extends StatefulWidget {
   static const location = '/style-layers/fill-extrusion';
 
   @override
-  State<StyleLayersFillExtrusionPage> createState() =>
-      _StyleLayersFillExtrusionPageState();
+  State<StyleLayersFillExtrusionPage> createState() => _StyleLayersFillExtrusionPageState();
 }
 
 const _sourceId = 'floorplan';
 
-class _StyleLayersFillExtrusionPageState
-    extends State<StyleLayersFillExtrusionPage> {
+class _StyleLayersFillExtrusionPageState extends State<StyleLayersFillExtrusionPage> {
   late final MapController _controller;
 
   @override
@@ -43,8 +41,7 @@ class _StyleLayersFillExtrusionPageState
     await _controller.addSource(
       const GeoJsonSource(
         id: _sourceId,
-        data:
-            'https://maplibre.org/maplibre-gl-js/docs/assets/indoor-3d-map.geojson',
+        data: 'https://maplibre.org/maplibre-gl-js/docs/assets/indoor-3d-map.geojson',
       ),
     );
     await _controller.addLayer(_fillExtrusionStyleLayer);

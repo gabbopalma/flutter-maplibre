@@ -13,9 +13,11 @@ import 'package:maplibre_example/menu_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
 import 'package:maplibre_example/performance_cartografia.dart';
+import 'package:maplibre_example/performance_edit_geometry_page.dart';
 import 'package:maplibre_example/performance_of_project_page.dart';
-import 'package:maplibre_example/performance_stress_test.dart';
+import 'package:maplibre_example/performance_stress_test_page.dart';
 import 'package:maplibre_example/permissions_page.dart';
+import 'package:maplibre_example/streets_map_page.dart';
 import 'package:maplibre_example/style_layers_circle_page.dart';
 import 'package:maplibre_example/style_layers_fill_extrusion_page.dart';
 import 'package:maplibre_example/style_layers_fill_page.dart';
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
         GesturesPage.location: (context) => const GesturesPage(),
         EventsPage.location: (context) => const EventsPage(),
         StyledMapPage.location: (context) => const StyledMapPage(),
+        StreetsMapPage.location: (context) => const StreetsMapPage(),
         UserLocationPage.location: (context) => const UserLocationPage(),
         UserInterfacePage.location: (context) => const UserInterfacePage(),
         WidgetLayerPage.location: (context) => const WidgetLayerPage(),
@@ -79,8 +82,9 @@ class MyApp extends StatelessWidget {
         ControllerPage.location: (context) => const ControllerPage(),
         TwoMapsPage.location: (context) => const TwoMapsPage(),
         PerformanceOfProjectPage.location: (context) => const PerformanceOfProjectPage(),
-        PerformanceStressTest.location: (context) => const PerformanceStressTest(),
+        PerformanceStressTestPage.location: (context) => const PerformanceStressTestPage(),
         PerformanceCartografia.location: (context) => const PerformanceCartografia(),
+        PerformanceEditGeometryPage.location: (context) => const PerformanceEditGeometryPage(),
       },
     );
   }
