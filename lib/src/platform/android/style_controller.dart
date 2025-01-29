@@ -89,6 +89,7 @@ class StyleControllerAndroid implements StyleController {
         case GeoJsonSource():
           final jniOptions = jni.GeoJsonOptions();
           final jniData = source.data.toJString();
+          log('GeoJsonSource: $jniData');
           if (source.data.startsWith('{')) {
             jniSource = jni.GeoJsonSource.new$4(jniId, jniData, jniOptions);
           } else {
@@ -107,8 +108,7 @@ class StyleControllerAndroid implements StyleController {
           jniSource.setVolatile(source.volatile.toJBoolean());
         case RasterSource():
           if (source.url case final String url) {
-            jniSource =
-                jni.RasterSource.new$4(jniId, url.toJString(), source.tileSize);
+            jniSource = jni.RasterSource.new$4(jniId, url.toJString(), source.tileSize);
           } else {
             final tilesArray = JArray(JString.type, source.tiles!.length);
             for (var i = 0; i < source.tiles!.length; i++) {
@@ -187,8 +187,7 @@ class StyleControllerAndroid implements StyleController {
   }) async {
     final jniStyle = _jniStyle;
     await runOnPlatformThread(() {
-      final source =
-          jniStyle.getSourceAs(id.toJString(), T: jni.GeoJsonSource.type)!;
+      final source = jniStyle.getSourceAs(id.toJString(), T: jni.GeoJsonSource.type)!;
       source.setGeoJson$3(data.toJString());
     });
   }
@@ -228,11 +227,11 @@ class StyleControllerAndroid implements StyleController {
     // no implementation needed, globe is not supported on web.
   }
 
-  JArray<JString> _getLayersIds() => _getQueryLayerIds(_getLayers());
+  JArray<JString?> _getLayersIds() => _getQueryLayerIds(_getLayers());
 
-  JArray<JString> _getQueryLayerIds(JList jniLayers) {
+  JArray<JString?> _getQueryLayerIds(JList jniLayers) {
     // Use a list to temporary store the layer ids and avoid null values.
-    final queryLayerIds = JList.array(JString.type);
+    final queryLayerIds = JList.array(JString.nullableType);
 
     for (var i = jniLayers.length - 1; i >= 0; i--) {
       final jniLayer = jniLayers[i]!;
@@ -262,9 +261,9 @@ class StyleControllerAndroid implements StyleController {
       }
     }
 
-    final resultArray = JArray<JString>(JString.type, queryLayerIds.length);
+    final resultArray = JArray<JString?>(JString.nullableType, queryLayerIds.length);
     for (var i = 0; i < queryLayerIds.length; i++) {
-      resultArray[i] = queryLayerIds[i];
+      if (queryLayerIds[i] != null) resultArray[i] = queryLayerIds[i];
     }
     queryLayerIds.release();
 

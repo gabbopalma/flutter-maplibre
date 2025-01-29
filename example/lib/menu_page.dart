@@ -11,6 +11,9 @@ import 'package:maplibre_example/layers_polygon_page.dart';
 import 'package:maplibre_example/layers_polyline_page.dart';
 import 'package:maplibre_example/offline_page.dart';
 import 'package:maplibre_example/parameters_page.dart';
+import 'package:maplibre_example/performance_cartografia.dart';
+import 'package:maplibre_example/performance_edit_geometry_page.dart';
+import 'package:maplibre_example/performance_stress_test_page.dart';
 import 'package:maplibre_example/permissions_page.dart';
 import 'package:maplibre_example/style_layers_circle_page.dart';
 import 'package:maplibre_example/style_layers_fill_extrusion_page.dart';
@@ -37,6 +40,28 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(title: const Text('MapLibre Demo')),
       body: CustomScrollView(
         slivers: [
+          const SliverToBoxAdapter(child: SectionTitle('Smartfield cases')),
+          SliverGrid.extent(
+            maxCrossAxisExtent: 150,
+            childAspectRatio: 1.5,
+            children: const [
+              ItemCard(
+                label: 'Cartografia',
+                iconData: Icons.map,
+                location: PerformanceCartografia.location,
+              ),
+              ItemCard(
+                label: 'Edit Geometry',
+                iconData: Icons.line_axis,
+                location: PerformanceEditGeometryPage.location,
+              ),
+              ItemCard(
+                label: 'Stress test',
+                iconData: Icons.hardware,
+                location: PerformanceStressTestPage.location,
+              ),
+            ],
+          ),
           const SliverToBoxAdapter(child: SectionTitle('General')),
           SliverGrid.extent(
             maxCrossAxisExtent: 150,

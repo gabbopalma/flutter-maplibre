@@ -29,8 +29,7 @@ class _StyleLayersHeatmapPageState extends State<StyleLayersHeatmapPage> {
   Future<void> _onStyleLoaded(StyleController style) async {
     const earthquakes = GeoJsonSource(
       id: _sourceId,
-      data:
-          'https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson',
+      data: 'https://maplibre.org/maplibre-gl-js/docs/assets/earthquakes.geojson',
     );
     await style.addSource(earthquakes);
     await style.addLayer(_heatmapStyleLayer);
