@@ -27,7 +27,8 @@ class _PerformanceCartografiaState extends State<PerformanceCartografia> {
           initCenter: Position(7.532688, 44.375627),
         ),
         onStyleLoaded: (StyleController style) async {
-          final geoJson = await rootBundle.loadString('assets/geojson/cartografia.json');
+          final geoJson =
+              await rootBundle.loadString('assets/geojson/cartografia.json');
 
           await style.addSource(GeoJsonSource(id: 'lines', data: geoJson));
           await style.addLayer(

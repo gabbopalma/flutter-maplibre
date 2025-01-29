@@ -10,7 +10,8 @@ class PerformanceWaterProject extends StatefulWidget {
   static const location = '/performance/water-project';
 
   @override
-  State<PerformanceWaterProject> createState() => _PerformanceWaterProjectState();
+  State<PerformanceWaterProject> createState() =>
+      _PerformanceWaterProjectState();
 }
 
 class _PerformanceWaterProjectState extends State<PerformanceWaterProject> {
@@ -27,7 +28,8 @@ class _PerformanceWaterProjectState extends State<PerformanceWaterProject> {
         ),
         onMapCreated: (controller) => this.controller = controller,
         onStyleLoaded: (StyleController style) async {
-          final geoJson = await rootBundle.loadString('assets/geojson/cartografia.json');
+          final geoJson =
+              await rootBundle.loadString('assets/geojson/cartografia.json');
 
           await style.addSource(GeoJsonSource(id: 'lines', data: geoJson));
           await style.addLayer(

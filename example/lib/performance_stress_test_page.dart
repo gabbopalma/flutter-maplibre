@@ -11,7 +11,8 @@ class PerformanceStressTestPage extends StatefulWidget {
   static const location = '/performance/stress-test';
 
   @override
-  State<PerformanceStressTestPage> createState() => _PerformanceStressTestPageState();
+  State<PerformanceStressTestPage> createState() =>
+      _PerformanceStressTestPageState();
 }
 
 class _PerformanceStressTestPageState extends State<PerformanceStressTestPage> {
@@ -29,10 +30,13 @@ class _PerformanceStressTestPageState extends State<PerformanceStressTestPage> {
         ),
         onMapCreated: (controller) => this.controller = controller,
         onStyleLoaded: (StyleController style) async {
-          final circlesGeoJson = await rootBundle.loadString('assets/geojson/europe_points.json');
-          final linesGeoJson = await rootBundle.loadString('assets/geojson/africa_lines.json');
+          final circlesGeoJson =
+              await rootBundle.loadString('assets/geojson/europe_points.json');
+          final linesGeoJson =
+              await rootBundle.loadString('assets/geojson/africa_lines.json');
 
-          await style.addSource(GeoJsonSource(id: 'circles', data: circlesGeoJson));
+          await style
+              .addSource(GeoJsonSource(id: 'circles', data: circlesGeoJson));
           await style.addLayer(
             const CircleStyleLayer(
               id: 'circles-layer',

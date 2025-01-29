@@ -13,10 +13,12 @@ class PerformanceEditGeometryPage extends StatefulWidget {
   static const location = '/performance/edit-geometry';
 
   @override
-  State<PerformanceEditGeometryPage> createState() => _PerformanceEditGeometryPageState();
+  State<PerformanceEditGeometryPage> createState() =>
+      _PerformanceEditGeometryPageState();
 }
 
-class _PerformanceEditGeometryPageState extends State<PerformanceEditGeometryPage> {
+class _PerformanceEditGeometryPageState
+    extends State<PerformanceEditGeometryPage> {
   late final MapController controller;
   late final StyleController styleController;
 
@@ -59,7 +61,8 @@ class _PerformanceEditGeometryPageState extends State<PerformanceEditGeometryPag
             case MapEventFeatureDrag():
               log('${event.event} feature ${event.feature.id} to ${event.point.lat}, ${event.point.lng}');
 
-              if (event.event != LongPressEventType.begin) await moveMarker(event.feature, event.point);
+              if (event.event != LongPressEventType.begin)
+                await moveMarker(event.feature, event.point);
             default:
               return;
           }
@@ -160,7 +163,8 @@ class _PerformanceEditGeometryPageState extends State<PerformanceEditGeometryPag
 
   Future<void> moveMarker(Feature feature, Position position) async {
     log(feature.properties.toString());
-    if (feature.properties == null || feature.properties!['index'] == null) return;
+    if (feature.properties == null || feature.properties!['index'] == null)
+      return;
     final index = feature.properties!['index'] as int;
     final editedPoints = polylinePoints;
     editedPoints[index] = position;

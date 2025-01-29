@@ -4,7 +4,8 @@ import 'dart:developer';
 import 'package:flutter/rendering.dart';
 import 'package:maplibre/maplibre.dart';
 import 'package:maplibre/src/platform/android/jni/jni.dart' as jni;
-import 'package:maplibre/src/platform/android/jni/org/maplibre/geojson/Feature.dart' as jni_geojson;
+import 'package:maplibre/src/platform/android/jni/org/maplibre/geojson/Feature.dart'
+    as jni_geojson;
 import 'package:maplibre/src/platform/pigeon.g.dart' as pigeon;
 
 /// Extension methods for the [Position] class. Not exported publicly.
